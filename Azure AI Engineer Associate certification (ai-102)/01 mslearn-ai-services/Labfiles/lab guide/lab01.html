@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<!-- saved from url=(0108)https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/01-use-azure-ai-services.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>
+            mslearn-ai-services
+        </title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="./lab01_files/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="./lab01_files/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="./lab01_files/vs.min.css">
+        <script src="./lab01_files/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <link rel="stylesheet" href="./lab01_files/style.css">
+    </head>
+    <body data-spy="scroll" data-target="#linksMenu">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gray">
+        <div class="container d-flex justify-content-between">
+            <a class="my-1 title text-white" href="https://docs.microsoft.com/training/">
+                <img src="./lab01_files/microsoft-gray.png" alt="Microsoft logo" style="width:100px;height:21px;">
+            </a>
+            <span class="my-1 title text-black">Microsoft Learn</span>
+            <span class="ml-2"><a href="https://microsoftlearning.github.io/mslearn-ai-services">≡</a></span>
+        </div>
+        <!--
+        <div class="container d-flex justify-content-between">
+            <a class="my-1 title text-azure text-uppercase" href="https://microsoftlearning.github.io/mslearn-ai-services">
+                mslearn-ai-services
+            </a>
+            <a href="https://github.com/MicrosoftLearning/mslearn-ai-services" target="_blank" class="btn btn-sm btn-outline-secondary text-light">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <span class="ml-2">GitHub</span>
+            </a>
+        </div>
+        -->
+    </nav>
+    <hr color-"gray"="">
+    <div class="container">
+        <main class="row extra-padding">
+            <aside class="col-sm-2">       
+                <nav id="linksMenu" class="toc sticky-top">
+                    <ul class="nav navbar-nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/01-use-azure-ai-services.html#clone-the-repository-in-visual-studio-code">Clone the repository in Visual Studio Code</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/01-use-azure-ai-services.html#provision-an-azure-ai-services-resource">Provision an Azure AI Services resource</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/01-use-azure-ai-services.html#use-a-rest-interface">Use a REST Interface</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/01-use-azure-ai-services.html#use-an-sdk">Use an SDK</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/01-use-azure-ai-services.html#clean-up-resources">Clean up resources</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/01-use-azure-ai-services.html#more-information">More information</a></li></ul>
+                </nav>         
+            </aside>
+            <hr class="">
+            <article class="col-sm-10 mb-5">
+                <h1 id="get-started-with-azure-ai-services">Get Started with Azure AI Services</h1>
+
+<p>In this exercise, you’ll get started with Azure AI Services by creating an <strong>Azure AI Services</strong> resource in your Azure subscription and using it from a client application. The goal of the exercise is not to gain expertise in any particular service, but rather to become familiar with a general pattern for provisioning and working with Azure AI services as a developer.</p>
+
+<h2 id="clone-the-repository-in-visual-studio-code">Clone the repository in Visual Studio Code</h2>
+
+<p>You’ll develop your code using Visual Studio Code. The code files for your app have been provided in a GitHub repo.</p>
+
+<blockquote>
+  <p><strong>Tip</strong>: If you have already cloned the <strong>mslearn-ai-services</strong> repo, open it in Visual Studio code. Otherwise, follow these steps to clone it to your development environment.</p>
+</blockquote>
+
+<ol>
+  <li>Start Visual Studio Code.</li>
+  <li>Open the palette (SHIFT+CTRL+P) and run a <strong>Git: Clone</strong> command to clone the <code>https://github.com/MicrosoftLearning/mslearn-ai-services</code> repository to a local folder (it doesn’t matter which folder).</li>
+  <li>When the repository has been cloned, open the folder in Visual Studio Code.</li>
+  <li>
+    <p>Wait while additional files are installed to support the C# code projects in the repo, if necessary</p>
+
+    <blockquote>
+      <p><strong>Note</strong>: If you are prompted to add required assets to build and debug, select <strong>Not Now</strong>.</p>
+    </blockquote>
+  </li>
+  <li>Expand the <code>Labfiles/01-use-azure-ai-services</code> folder.</li>
+</ol>
+
+<p>Code for both C# and Python has been provided. Expand the folder of your preferred language.</p>
+
+<h2 id="provision-an-azure-ai-services-resource">Provision an Azure AI Services resource</h2>
+
+<p>Azure AI Services are cloud-based services that encapsulate artificial intelligence capabilities you can incorporate into your applications. You can provision individual Azure AI services resources for specific APIs (for example, <strong>Language</strong> or <strong>Vision</strong>), or you can provision a single <strong>Azure AI Services</strong> resource that provides access to multiple Azure AI services APIs through a single endpoint and key. In this case, you’ll use a single <strong>Azure AI Services</strong> resource.</p>
+
+<ol>
+  <li>Open the Azure portal at <code>https://portal.azure.com</code>, and sign in using the Microsoft account associated with your Azure subscription.</li>
+  <li>In the top search bar, search for <em>Azure AI services</em>, select <strong>Azure AI Services</strong>, and create an Azure AI services multi-service account resource with the following settings:
+    <ul>
+      <li><strong>Subscription</strong>: <em>Your Azure subscription</em></li>
+      <li><strong>Resource group</strong>: <em>Choose or create a resource group (if you are using a restricted subscription, you may not have permission to create a new resource group - use the one provided)</em></li>
+      <li><strong>Region</strong>: <em>Choose any available region</em></li>
+      <li><strong>Name</strong>: <em>Enter a unique name</em></li>
+      <li><strong>Pricing tier</strong>: Standard S0</li>
+    </ul>
+  </li>
+  <li>Select the required checkboxes and create the resource.</li>
+  <li>Wait for deployment to complete, and then view the deployment details.</li>
+  <li>Go to the resource and view its <strong>Keys and Endpoint</strong> page. This page contains the information that you will need to connect to your resource and use it from applications you develop. Specifically:
+    <ul>
+      <li>An HTTP <em>endpoint</em> to which client applications can send requests.</li>
+      <li>Two <em>keys</em> that can be used for authentication (client applications can use either key to authenticate).</li>
+      <li>The <em>location</em> where the resource is hosted. This is required for requests to some (but not all) APIs.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="use-a-rest-interface">Use a REST Interface</h2>
+
+<p>The Azure AI services APIs are REST-based, so you can consume them by submitting JSON requests over HTTP. In this example, you’ll explore a console application that uses the <strong>Language</strong> REST API to perform language detection; but the basic principle is the same for all of the APIs supported by the Azure AI Services resource.</p>
+
+<blockquote>
+  <p><strong>Note</strong>: In this exercise, you can choose to use the REST API from either <strong>C#</strong> or <strong>Python</strong>. In the steps below, perform the actions appropriate for your preferred language.</p>
+</blockquote>
+
+<ol>
+  <li>In Visual Studio Code, expand the <strong>C-Sharp</strong> or <strong>Python</strong> folder depending on your language preference.</li>
+  <li>
+    <p>View the contents of the <strong>rest-client</strong> folder, and note that it contains a file for configuration settings:</p>
+
+    <ul>
+      <li><strong>C#</strong>: appsettings.json</li>
+      <li><strong>Python</strong>: .env</li>
+    </ul>
+
+    <p>Open the configuration file and update the configuration values it contains to reflect the <strong>endpoint</strong> and an authentication <strong>key</strong> for your Azure AI services resource. Save your changes.</p>
+  </li>
+  <li>
+    <p>Note that the <strong>rest-client</strong> folder contains a code file for the client application:</p>
+
+    <ul>
+      <li><strong>C#</strong>: Program.cs</li>
+      <li><strong>Python</strong>: rest-client.py</li>
+    </ul>
+
+    <p>Open the code file and review the code it contains, noting the following details:</p>
+    <ul>
+      <li>Various namespaces are imported to enable HTTP communication</li>
+      <li>Code in the <strong>Main</strong> function retrieves the endpoint and key for your Azure AI services resource - these will be used to send REST requests to the Text Analytics service.</li>
+      <li>The program accepts user input, and uses the <strong>GetLanguage</strong> function to call the Text Analytics language detection REST API for your Azure AI services endpoint to detect the language of the text that was entered.</li>
+      <li>The request sent to the API consists of a JSON object containing the input data - in this case, a collection of <strong>document</strong> objects, each of which has an <strong>id</strong> and <strong>text</strong>.</li>
+      <li>The key for your service is included in the request header to authenticate your client application.</li>
+      <li>The response from the service is a JSON object, which the client application can parse.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Right click on the <strong>rest-client</strong> folder, select <em>Open in Integrated Terminal</em> and run the following command:</p>
+
+    <p><strong>C#</strong></p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock0" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock0" class="mt-0"><code class="hljs nginx"> <span class="hljs-attribute"><span class="hljs-attribute">dotnet</span></span> run
+</code></pre>
+
+    <p><strong>Python</strong></p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock1" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock1" class="mt-0"><code class="hljs css"> <span class="hljs-selector-tag"><span class="hljs-selector-tag">pip</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">install</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">python-dotenv</span></span>
+ <span class="hljs-selector-tag"><span class="hljs-selector-tag">python</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">rest-client</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.py</span></span>
+</code></pre>
+  </li>
+  <li>When prompted, enter some text and review the language that is detected by the service, which is returned in the JSON response. For example, try entering “Hello”, “Bonjour”, and “Gracias”.</li>
+  <li>When you have finished testing the application, enter “quit” to stop the program.</li>
+</ol>
+
+<h2 id="use-an-sdk">Use an SDK</h2>
+
+<p>You can write code that consumes Azure AI services REST APIs directly, but there are software development kits (SDKs) for many popular programming languages, including Microsoft C#, Python, Java, and Node.js. Using an SDK can greatly simplify development of applications that consume Azure AI services.</p>
+
+<ol>
+  <li>
+    <p>In Visual Studio Code, expand the <strong>sdk-client</strong> folder under the <strong>C-Sharp</strong> or <strong>Python</strong> folder, depending on your language preference. Then run <code>cd ../sdk-client</code> to change into the relevant <strong>sdk-client</strong> folder.</p>
+  </li>
+  <li>
+    <p>Install the Text Analytics SDK package by running the appropriate command for your language preference:</p>
+
+    <p><strong>C#</strong></p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock2" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock2" class="mt-0"><code class="hljs css"> <span class="hljs-selector-tag"><span class="hljs-selector-tag">dotnet</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">add</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">package</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">Azure</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.AI</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.TextAnalytics</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">--version</span></span> 5<span class="hljs-selector-class"><span class="hljs-selector-class">.3</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.0</span></span>
+</code></pre>
+
+    <p><strong>Python</strong></p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock3" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock3" class="mt-0"><code class="hljs nginx"> <span class="hljs-attribute"><span class="hljs-attribute">pip</span></span> install azure-ai-textanalytics==<span class="hljs-number"><span class="hljs-number">5</span></span>.<span class="hljs-number"><span class="hljs-number">3</span></span>.<span class="hljs-number"><span class="hljs-number">0</span></span>
+</code></pre>
+  </li>
+  <li>
+    <p>View the contents of the <strong>sdk-client</strong> folder, and note that it contains a file for configuration settings:</p>
+
+    <ul>
+      <li><strong>C#</strong>: appsettings.json</li>
+      <li><strong>Python</strong>: .env</li>
+    </ul>
+
+    <p>Open the configuration file and update the configuration values it contains to reflect the <strong>endpoint</strong> and an authentication <strong>key</strong> for your Azure AI services resource. Save your changes.</p>
+  </li>
+  <li>
+    <p>Note that the <strong>sdk-client</strong> folder contains a code file for the client application:</p>
+
+    <ul>
+      <li><strong>C#</strong>: Program.cs</li>
+      <li><strong>Python</strong>: sdk-client.py</li>
+    </ul>
+
+    <p>Open the code file and review the code it contains, noting the following details:</p>
+    <ul>
+      <li>The namespace for the SDK you installed is imported</li>
+      <li>Code in the <strong>Main</strong> function retrieves the endpoint and key for your Azure AI services resource - these will be used with the SDK to create a client for the Text Analytics service.</li>
+      <li>The <strong>GetLanguage</strong> function uses the SDK to create a client for the service, and then uses the client to detect the language of the text that was entered.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Return to the terminal, ensure you are in the <strong>sdk-client</strong> folder, and enter the following command to run the program:</p>
+
+    <p><strong>C#</strong></p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock4" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock4" class="mt-0"><code class="hljs nginx"> <span class="hljs-attribute"><span class="hljs-attribute">dotnet</span></span> run
+</code></pre>
+
+    <p><strong>Python</strong></p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock5" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock5" class="mt-0"><code class="hljs css"> <span class="hljs-selector-tag"><span class="hljs-selector-tag">python</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">sdk-client</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.py</span></span>
+</code></pre>
+  </li>
+  <li>When prompted, enter some text and review the language that is detected by the service. For example, try entering “Goodbye”, “Au revoir”, and “Hasta la vista”.</li>
+  <li>When you have finished testing the application, enter “quit” to stop the program.</li>
+</ol>
+
+<blockquote>
+  <p><strong>Note</strong>: Some languages that require Unicode character sets may not be recognized in this simple console application.</p>
+</blockquote>
+
+<h2 id="clean-up-resources">Clean up resources</h2>
+
+<p>If you’re not using the Azure resources created in this lab for other training modules, you can delete them to avoid incurring further charges.</p>
+
+<ol>
+  <li>
+    <p>Open the Azure portal at <code>https://portal.azure.com</code>, and in the top search bar, search for the resources you created in this lab.</p>
+  </li>
+  <li>
+    <p>On the resource page, select <strong>Delete</strong> and follow the instructions to delete the resource. Alternatively, you can delete the entire resource group to clean up all resources at the same time.</p>
+  </li>
+</ol>
+
+<h2 id="more-information">More information</h2>
+
+<p>For more information about Azure AI Services, see the <a href="https://docs.microsoft.com/azure/ai-services/what-are-ai-services">Azure AI Services documentation</a>.</p>
+
+            </article>
+        </main>
+    </div>
+    <footer class="fixed-bottom d-print-none">
+        <nav class="navbar navbar-light bg-light d-flex justify-content-around">
+            <span class="navbar-text">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <a href="https://github.com/MicrosoftLearning/mslearn-ai-services" target="_blank" class="ml-2">
+                    MicrosoftLearning/mslearn-ai-services
+                </a>
+            </span>
+        </nav>
+    </footer>
+    <script src="./lab01_files/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="./lab01_files/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="./lab01_files/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="./lab01_files/clipboard.min.js"></script>
+    <script src="./lab01_files/highlight.min.js"></script>
+    <script src="./lab01_files/script.js"></script>
+
+
+
+<iframe id="eLXECatL" src="./lab01_files/translateSandbox.html" frameborder="0" style="width: 0px; height: 0px;"></iframe></body></html>

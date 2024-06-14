@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!-- saved from url=(0102)https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/04-use-a-container.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>
+            mslearn-ai-services
+        </title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="./lab04_files/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="./lab04_files/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="./lab04_files/vs.min.css">
+        <script src="./lab04_files/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <link rel="stylesheet" href="./lab04_files/style.css">
+    </head>
+    <body data-spy="scroll" data-target="#linksMenu" style="overscroll-behavior-x: auto;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gray">
+        <div class="container d-flex justify-content-between">
+            <a class="my-1 title text-white" href="https://docs.microsoft.com/training/">
+                <img src="./lab04_files/microsoft-gray.png" alt="Microsoft logo" style="width:100px;height:21px;">
+            </a>
+            <span class="my-1 title text-black">Microsoft Learn</span>
+            <span class="ml-2"><a href="https://microsoftlearning.github.io/mslearn-ai-services">≡</a></span>
+        </div>
+        <!--
+        <div class="container d-flex justify-content-between">
+            <a class="my-1 title text-azure text-uppercase" href="https://microsoftlearning.github.io/mslearn-ai-services">
+                mslearn-ai-services
+            </a>
+            <a href="https://github.com/MicrosoftLearning/mslearn-ai-services" target="_blank" class="btn btn-sm btn-outline-secondary text-light">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <span class="ml-2">GitHub</span>
+            </a>
+        </div>
+        -->
+    </nav>
+    <hr color-"gray"="">
+    <div class="container">
+        <main class="row extra-padding">
+            <aside class="col-sm-2">       
+                <nav id="linksMenu" class="toc sticky-top">
+                    <ul class="nav navbar-nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/04-use-a-container.html#clone-the-repository-in-visual-studio-code">Clone the repository in Visual Studio Code</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/04-use-a-container.html#provision-an-azure-ai-services-resource">Provision an Azure AI Services resource</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/04-use-a-container.html#deploy-and-run-a-text-analytics-container">Deploy and run a Text Analytics container</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/04-use-a-container.html#use-the-container">Use the container</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/04-use-a-container.html#clean-up">Clean Up</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/04-use-a-container.html#clean-up-resources">Clean up resources</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/04-use-a-container.html#more-information">More information</a></li></ul>
+                </nav>         
+            </aside>
+            <hr class="">
+            <article class="col-sm-10 mb-5">
+                <h1 id="use-an-azure-ai-services-container">Use an Azure AI Services Container</h1>
+
+<p>Using Azure AI services hosted in Azure enables application developers to focus on the infrastructure for their own code while benefiting from scalable services that are managed by Microsoft. However, in many scenarios, organizations require more control over their service infrastructure and the data that is passed between services.</p>
+
+<p>Many of the Azure AI services APIs can be packaged and deployed in a <em>container</em>, enabling organizations to host Azure AI services in their own infrastructure; for example in local Docker servers, Azure Container Instances, or Azure Kubernetes Services clusters. Containerized Azure AI services need to communicate with an Azure-based Azure AI services account to support billing; but application data is not passed to the back-end service, and organizations have greater control over the deployment configuration of their containers, enabling custom solutions for authentication, scalability, and other considerations.</p>
+
+<blockquote>
+  <p><strong>Note</strong>: There is an issue currently being investigated that some users hit where containers won’t deploy properly, and calls to those containers fail. Updates to this lab will be made as soon as the issue has been resolved.</p>
+</blockquote>
+
+<h2 id="clone-the-repository-in-visual-studio-code">Clone the repository in Visual Studio Code</h2>
+
+<p>You’ll develop your code using Visual Studio Code. The code files for your app have been provided in a GitHub repo.</p>
+
+<blockquote>
+  <p><strong>Tip</strong>: If you have already cloned the <strong>mslearn-ai-services</strong> repo, open it in Visual Studio code. Otherwise, follow these steps to clone it to your development environment.</p>
+</blockquote>
+
+<ol>
+  <li>Start Visual Studio Code.</li>
+  <li>Open the palette (SHIFT+CTRL+P) and run a <strong>Git: Clone</strong> command to clone the <code>https://github.com/MicrosoftLearning/mslearn-ai-services</code> repository to a local folder (it doesn’t matter which folder).</li>
+  <li>When the repository has been cloned, open the folder in Visual Studio Code.</li>
+  <li>
+    <p>Wait while additional files are installed to support the C# code projects in the repo, if necessary</p>
+
+    <blockquote>
+      <p><strong>Note</strong>: If you are prompted to add required assets to build and debug, select <strong>Not Now</strong>.</p>
+    </blockquote>
+  </li>
+  <li>Expand the <code>Labfiles/04-use-a-container</code> folder.</li>
+</ol>
+
+<h2 id="provision-an-azure-ai-services-resource">Provision an Azure AI Services resource</h2>
+
+<p>If you don’t already have one in your subscription, you’ll need to provision an <strong>Azure AI Services</strong> resource.</p>
+
+<ol>
+  <li>Open the Azure portal at <code>https://portal.azure.com</code>, and sign in using the Microsoft account associated with your Azure subscription.</li>
+  <li>In the top search bar, search for <em>Azure AI services</em>, select <strong>Azure AI Services</strong>, and create an Azure AI services multi-service account resource with the following settings:
+    <ul>
+      <li><strong>Subscription</strong>: <em>Your Azure subscription</em></li>
+      <li><strong>Resource group</strong>: <em>Choose or create a resource group (if you are using a restricted subscription, you may not have permission to create a new resource group - use the one provided)</em></li>
+      <li><strong>Region</strong>: <em>Choose any available region</em></li>
+      <li><strong>Name</strong>: <em>Enter a unique name</em></li>
+      <li><strong>Pricing tier</strong>: Standard S0</li>
+    </ul>
+  </li>
+  <li>Select the required checkboxes and create the resource.</li>
+  <li>Wait for deployment to complete, and then view the deployment details.</li>
+  <li>When the resource has been deployed, go to it and view its <strong>Keys and Endpoint</strong> page. You will need the endpoint and one of the keys from this page in the next procedure.</li>
+</ol>
+
+<h2 id="deploy-and-run-a-text-analytics-container">Deploy and run a Text Analytics container</h2>
+
+<p>Many commonly used Azure AI services APIs are available in container images. For a full list, check out the <a href="https://docs.microsoft.com/azure/cognitive-services/cognitive-services-container-support#container-availability-in-azure-cognitive-services">Azure AI services documentation</a>. In this exercise, you’ll use the container image for the Text Analytics <em>language detection</em> API; but the principles are the same for all of the available images.</p>
+
+<ol>
+  <li>
+    <p>In the Azure portal, on the <strong>Home</strong> page, select the <strong>＋Create a resource</strong> button, search for <em>container instances</em>, and create a <strong>Container Instances</strong> resource with the following settings:</p>
+
+    <ul>
+      <li><strong>Basics</strong>:
+        <ul>
+          <li><strong>Subscription</strong>: <em>Your Azure subscription</em></li>
+          <li><strong>Resource group</strong>: <em>Choose the resource group containing your Azure AI services resource</em></li>
+          <li><strong>Container name</strong>: <em>Enter a unique name</em></li>
+          <li><strong>Region</strong>: <em>Choose any available region</em></li>
+          <li><strong>Image source</strong>: Other Registry</li>
+          <li><strong>Image type</strong>: Public</li>
+          <li><strong>Image</strong>: <code>mcr.microsoft.com/azure-cognitive-services/textanalytics/language:latest</code></li>
+          <li><strong>OS type</strong>: Linux</li>
+          <li><strong>Size</strong>: 1 vcpu, 12 GB memory</li>
+        </ul>
+      </li>
+      <li><strong>Networking</strong>:
+        <ul>
+          <li><strong>Networking type</strong>: Public</li>
+          <li><strong>DNS name label</strong>: <em>Enter a unique name for the container endpoint</em></li>
+          <li><strong>Ports</strong>: <em>Change the TCP port from 80 to <strong>5000</strong></em></li>
+        </ul>
+      </li>
+      <li><strong>Advanced</strong>:
+        <ul>
+          <li><strong>Restart policy</strong>: On failure</li>
+          <li>
+            <p><strong>Environment variables</strong>:</p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Mark as secure</th>
+                  <th>Key</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Yes</td>
+                  <td><code>ApiKey</code></td>
+                  <td><em>Either key for your Azure AI services resource</em></td>
+                </tr>
+                <tr>
+                  <td>Yes</td>
+                  <td><code>Billing</code></td>
+                  <td><em>The endpoint URI for your Azure AI services resource</em></td>
+                </tr>
+                <tr>
+                  <td>No</td>
+                  <td><code>Eula</code></td>
+                  <td><code>accept</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+          <li><strong>Command override</strong>: [ ]</li>
+        </ul>
+      </li>
+      <li><strong>Tags</strong>:
+        <ul>
+          <li><em>Don’t add any tags</em></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Select <strong>Review + create</strong> then select <strong>Create</strong>. Wait for deployment to complete, and then go to the deployed resource.
+    <blockquote>
+      <p><strong>Note</strong> Please note that deploying an Azure AI container to Azure Container Instances typically takes 5-10 minutes (provisioning) before they are ready to use.</p>
+    </blockquote>
+  </li>
+  <li>Observe the following properties of your container instance resource on its <strong>Overview</strong> page:
+    <ul>
+      <li><strong>Status</strong>: This should be <em>Running</em>.</li>
+      <li><strong>IP Address</strong>: This is the public IP address you can use to access your container instances.</li>
+      <li><strong>FQDN</strong>: This is the <em>fully-qualified domain name</em> of the container instances resource, you can use this to access the container instances instead of the IP address.</li>
+    </ul>
+
+    <blockquote>
+      <p><strong>Note</strong>: In this exercise, you’ve deployed the Azure AI services container image for text translation to an Azure Container Instances (ACI) resource. You can use a similar approach to deploy it to a <em><a href="https://www.docker.com/products/docker-desktop">Docker</a></em> host on your own computer or network by running the following command (on a single line) to deploy the language detection container to your local Docker instance, replacing <em>&lt;yourEndpoint&gt;</em> and <em>&lt;yourKey&gt;</em> with your endpoint URI and either of the keys for your Azure AI services resource.
+The command will look for the image on your local machine, and if it doesn’t find it there it will pull it from the <em>mcr.microsoft.com</em> image registry and deploy it to your Docker instance. When deployment is complete, the container will start and listen for incoming requests on port 5000.</p>
+    </blockquote>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock0" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock0" class="mt-0"><code class="hljs xml"> docker run --rm -it -p 5000:5000 --memory 12g --cpus 1 mcr.microsoft.com/azure-cognitive-services/textanalytics/language:latest Eula=accept Billing=<span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">yourEndpoint</span></span></span><span class="hljs-tag">&gt;</span></span> ApiKey=<span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">yourKey</span></span></span><span class="hljs-tag">&gt;</span></span>
+</code></pre>
+  </li>
+</ol>
+
+<h2 id="use-the-container">Use the container</h2>
+
+<ol>
+  <li>
+    <p>In your editor, open <strong>rest-test.cmd</strong> and edit the <strong>curl</strong> command it contains (shown below), replacing <em>&lt;your_ACI_IP_address_or_FQDN&gt;</em> with the IP address or FQDN for your container.</p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock1" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock1" class="mt-0"><code class="hljs nginx"> <span class="hljs-attribute"><span class="hljs-attribute">curl</span></span> -X POST <span class="hljs-string"><span class="hljs-string">"http://&lt;your_ACI_IP_address_or_FQDN&gt;:5000/text/analytics/v3.0/languages"</span></span> -H <span class="hljs-string"><span class="hljs-string">"Content-Type: application/json"</span></span> --data-ascii <span class="hljs-string"><span class="hljs-string">"{'documents':[{'id':1,'text':'Hello world.'},{'id':2,'text':'Salut tout le monde.'}]}"</span></span>
+</code></pre>
+  </li>
+  <li>Save your changes to the script by pressing <strong>CTRL+S</strong>. Note that you do not need to specify the Azure AI services endpoint or key - the request is processed by the containerized service. The container in turn communicates periodically with the service in Azure to report usage for billing, but does not send request data.</li>
+  <li>
+    <p>Enter the following command to run the script:</p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock2" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock2" class="mt-0"><code class="hljs"> ./rest-test.cmd
+</code></pre>
+  </li>
+  <li>Verify that the command returns a JSON document containing information about the language detected in the two input documents (which should be English and French).</li>
+</ol>
+
+<h2 id="clean-up">Clean Up</h2>
+
+<p>If you’ve finished experimenting with your container instance, you should delete it.</p>
+
+<ol>
+  <li>In the Azure portal, open the resource group where you created your resources for this exercise.</li>
+  <li>Select the container instance resource and delete it.</li>
+</ol>
+
+<h2 id="clean-up-resources">Clean up resources</h2>
+
+<p>If you’re not using the Azure resources created in this lab for other training modules, you can delete them to avoid incurring further charges.</p>
+
+<ol>
+  <li>
+    <p>Open the Azure portal at <code>https://portal.azure.com</code>, and in the top search bar, search for the resources you created in this lab.</p>
+  </li>
+  <li>
+    <p>On the resource page, select <strong>Delete</strong> and follow the instructions to delete the resource. Alternatively, you can delete the entire resource group to clean up all resources at the same time.</p>
+  </li>
+</ol>
+
+<h2 id="more-information">More information</h2>
+
+<p>For more information about containerizing Azure AI services, see the <a href="https://learn.microsoft.com/azure/ai-services/cognitive-services-container-support">Azure AI Services containers documentation</a>.</p>
+
+            </article>
+        </main>
+    </div>
+    <footer class="fixed-bottom d-print-none">
+        <nav class="navbar navbar-light bg-light d-flex justify-content-around">
+            <span class="navbar-text">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <a href="https://github.com/MicrosoftLearning/mslearn-ai-services" target="_blank" class="ml-2">
+                    MicrosoftLearning/mslearn-ai-services
+                </a>
+            </span>
+        </nav>
+    </footer>
+    <script src="./lab04_files/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="./lab04_files/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="./lab04_files/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="./lab04_files/clipboard.min.js"></script>
+    <script src="./lab04_files/highlight.min.js"></script>
+    <script src="./lab04_files/script.js"></script>
+
+
+
+<iframe id="tH0WsI7g" src="./lab04_files/translateSandbox.html" frameborder="0" style="width: 0px; height: 0px;"></iframe></body></html>

@@ -1,0 +1,1 @@
+curl -X POST "https://ai102-lab02.openai.azure.com/language/:analyze-text?api-version=2023-04-01" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: e9c27486edfb43db82259357897fca58" --data-ascii "{'analysisInput':{'documents':[{'id':1,'text':'hello'}]}, 'kind': 'LanguageDetection'}"

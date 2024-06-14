@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<!-- saved from url=(0107)https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/02-ai-services-security.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>
+            mslearn-ai-services
+        </title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="./lab02_files/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="./lab02_files/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="./lab02_files/vs.min.css">
+        <script src="./lab02_files/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <link rel="stylesheet" href="./lab02_files/style.css">
+    </head>
+    <body data-spy="scroll" data-target="#linksMenu" style="overscroll-behavior-x: auto;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gray">
+        <div class="container d-flex justify-content-between">
+            <a class="my-1 title text-white" href="https://docs.microsoft.com/training/">
+                <img src="./lab02_files/microsoft-gray.png" alt="Microsoft logo" style="width:100px;height:21px;">
+            </a>
+            <span class="my-1 title text-black">Microsoft Learn</span>
+            <span class="ml-2"><a href="https://microsoftlearning.github.io/mslearn-ai-services">≡</a></span>
+        </div>
+        <!--
+        <div class="container d-flex justify-content-between">
+            <a class="my-1 title text-azure text-uppercase" href="https://microsoftlearning.github.io/mslearn-ai-services">
+                mslearn-ai-services
+            </a>
+            <a href="https://github.com/MicrosoftLearning/mslearn-ai-services" target="_blank" class="btn btn-sm btn-outline-secondary text-light">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <span class="ml-2">GitHub</span>
+            </a>
+        </div>
+        -->
+    </nav>
+    <hr color-"gray"="">
+    <div class="container">
+        <main class="row extra-padding">
+            <aside class="col-sm-2">       
+                <nav id="linksMenu" class="toc sticky-top">
+                    <ul class="nav navbar-nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/02-ai-services-security.html#clone-the-repository-in-visual-studio-code">Clone the repository in Visual Studio Code</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/02-ai-services-security.html#provision-an-azure-ai-services-resource">Provision an Azure AI Services resource</a></li><li class="nav-item"><a class="nav-link active" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/02-ai-services-security.html#manage-authentication-keys">Manage authentication keys</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/02-ai-services-security.html#secure-key-access-with-azure-key-vault">Secure key access with Azure Key Vault</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/02-ai-services-security.html#clean-up-resources">Clean up resources</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/02-ai-services-security.html#more-information">More information</a></li></ul>
+                </nav>         
+            </aside>
+            <hr class="">
+            <article class="col-sm-10 mb-5">
+                <h1 id="manage-azure-ai-services-security">Manage Azure AI Services Security</h1>
+
+<p>Security is a critical consideration for any application, and as a developer you should ensure that access to resources such as Azure AI services is restricted to only those who require it.</p>
+
+<p>Access to Azure AI services is typically controlled through authentication keys, which are generated when you initially create an Azure AI services resource.</p>
+
+<h2 id="clone-the-repository-in-visual-studio-code">Clone the repository in Visual Studio Code</h2>
+
+<p>You’ll develop your code using Visual Studio Code. The code files for your app have been provided in a GitHub repo.</p>
+
+<blockquote>
+  <p><strong>Tip</strong>: If you have already cloned the <strong>mslearn-ai-services</strong> repo recently, open it in Visual Studio code. Otherwise, follow these steps to clone it to your development environment.</p>
+</blockquote>
+
+<ol>
+  <li>Start Visual Studio Code.</li>
+  <li>Open the palette (SHIFT+CTRL+P) and run a <strong>Git: Clone</strong> command to clone the <code>https://github.com/MicrosoftLearning/mslearn-ai-services</code> repository to a local folder (it doesn’t matter which folder).</li>
+  <li>When the repository has been cloned, open the folder in Visual Studio Code.</li>
+  <li>
+    <p>Wait while additional files are installed to support the C# code projects in the repo, if necessary</p>
+
+    <blockquote>
+      <p><strong>Note</strong>: If you are prompted to add required assets to build and debug, select <strong>Not Now</strong>.</p>
+    </blockquote>
+  </li>
+  <li>Expand the <code>Labfiles/02-ai-services-security</code> folder.</li>
+</ol>
+
+<p>Code for both C# and Python has been provided. Expand the folder of your preferred language.</p>
+
+<h2 id="provision-an-azure-ai-services-resource">Provision an Azure AI Services resource</h2>
+
+<p>If you don’t already have one in your subscription, you’ll need to provision an <strong>Azure AI Services</strong> resource.</p>
+
+<ol>
+  <li>Open the Azure portal at <code>https://portal.azure.com</code>, and sign in using the Microsoft account associated with your Azure subscription.</li>
+  <li>In the top search bar, search for <em>Azure AI services</em>, select <strong>Azure AI Services</strong>, and create an Azure AI services multi-service account resource with the following settings:
+    <ul>
+      <li><strong>Subscription</strong>: <em>Your Azure subscription</em></li>
+      <li><strong>Resource group</strong>: <em>Choose or create a resource group (if you are using a restricted subscription, you may not have permission to create a new resource group - use the one provided)</em></li>
+      <li><strong>Region</strong>: <em>Choose any available region</em></li>
+      <li><strong>Name</strong>: <em>Enter a unique name</em></li>
+      <li><strong>Pricing tier</strong>: Standard S0</li>
+    </ul>
+  </li>
+  <li>Select the required checkboxes and create the resource.</li>
+  <li>Wait for deployment to complete, and then view the deployment details.</li>
+</ol>
+
+<h2 id="manage-authentication-keys">Manage authentication keys</h2>
+
+<p>When you created your Azure AI services resource, two authentication keys were generated. You can manage these in the Azure portal or by using the Azure command line interface (CLI).</p>
+
+<ol>
+  <li>In the Azure portal, go to your Azure AI services resource and view its <strong>Keys and Endpoint</strong> page. This page contains the information that you will need to connect to your resource and use it from applications you develop. Specifically:
+    <ul>
+      <li>An HTTP <em>endpoint</em> to which client applications can send requests.</li>
+      <li>Two <em>keys</em> that can be used for authentication (client applications can use either of the keys. A common practice is to use one for development, and another for production. You can easily regenerate the development key after developers have finished their work to prevent continued access).</li>
+      <li>The <em>location</em> where the resource is hosted. This is required for requests to some (but not all) APIs.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Now you can use the following command to get the list of Azure AI services keys, replacing <em>&lt;resourceName&gt;</em> with the name of your Azure AI services resource, and <em>&lt;resourceGroup&gt;</em> with the name of the resource group in which you created it.</p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock0" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock0" class="mt-0"><code class="hljs xml"> az cognitiveservices account keys list --name <span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">resourceName</span></span></span><span class="hljs-tag">&gt;</span></span> --resource-group <span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">resourceGroup</span></span></span><span class="hljs-tag">&gt;</span></span>
+</code></pre>
+
+    <p>The command returns a list of the keys for your Azure AI services resource - there are two keys, named <strong>key1</strong> and <strong>key2</strong>.</p>
+
+    <blockquote>
+      <p><strong>Tip</strong>: If you haven’t authenticated Azure CLI yet, run <code>az login</code> and sign into your account.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>To test your Azure AI service, you can use <strong>curl</strong> - a command line tool for HTTP requests. In the <strong>02-ai-services-security</strong> folder, open <strong>rest-test.cmd</strong> and edit the <strong>curl</strong> command it contains (shown below), replacing <em>&lt;yourEndpoint&gt;</em> and <em>&lt;yourKey&gt;</em> with your endpoint URI and <strong>Key1</strong> key to use the Analyze Text API in your Azure AI services resource.</p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock1" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock1" class="mt-0"><code class="language-bash hljs"> curl -X POST <span class="hljs-string"><span class="hljs-string">"&lt;yourEndpoint&gt;/language/:analyze-text?api-version=2023-04-01"</span></span> -H <span class="hljs-string"><span class="hljs-string">"Content-Type: application/json"</span></span> -H <span class="hljs-string"><span class="hljs-string">"Ocp-Apim-Subscription-Key: 81468b6728294aab99c489664a818197"</span></span> --data-ascii <span class="hljs-string"><span class="hljs-string">"{'analysisInput':{'documents':[{'id':1,'text':'hello'}]}, 'kind': 'LanguageDetection'}"</span></span>
+</code></pre>
+  </li>
+  <li>
+    <p>Save your changes, and then run the following command:</p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock2" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock2" class="mt-0"><code class="hljs css"> <span class="hljs-selector-tag"><span class="hljs-selector-tag">sh</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">rest-test</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.sh</span></span>
+</code></pre>
+  </li>
+</ol>
+
+<p>The command returns a JSON document containing information about the language detected in the input data (which should be English).</p>
+
+<ol>
+  <li>
+    <p>If a key becomes compromised, or the developers who have it no longer require access, you can regenerate it in the portal or by using the Azure CLI. Run the following command to regenerate your <strong>key1</strong> key (replacing <em>&lt;resourceName&gt;</em> and <em>&lt;resourceGroup&gt;</em> for your resource).</p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock3" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock3" class="mt-0"><code class="hljs xml"> az cognitiveservices account keys regenerate --name <span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">resourceName</span></span></span><span class="hljs-tag">&gt;</span></span> --resource-group <span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">resourceGroup</span></span></span><span class="hljs-tag">&gt;</span></span> --key-name key1
+</code></pre>
+  </li>
+</ol>
+
+<p>The list of keys for your Azure AI services resource is returned - note that <strong>key1</strong> has changed since you last retrieved them.</p>
+
+<ol>
+  <li>Re-run the <strong>rest-test</strong> command with the old key (you can use the <strong>^</strong> arrow on your keyboard to cycle through previous commands), and verify that it now fails.</li>
+  <li>Edit the <em>curl</em> command in <strong>rest-test.cmd</strong> replacing the key with the new <strong>key1</strong> value, and save the changes. Then rerun the <strong>rest-test</strong> command and verify that it succeeds.</li>
+</ol>
+
+<blockquote>
+  <p><strong>Tip</strong>: In this exercise, you used the full names of Azure CLI parameters, such as <strong>–resource-group</strong>.  You can also use shorter alternatives, such as <strong>-g</strong>, to make your commands less verbose (but a little harder to understand).  The <a href="https://docs.microsoft.com/cli/azure/cognitiveservices?view=azure-cli-latest">Azure AI Services CLI command reference</a> lists the parameter options for each Azure AI services CLI command.</p>
+</blockquote>
+
+<h2 id="secure-key-access-with-azure-key-vault">Secure key access with Azure Key Vault</h2>
+
+<p>You can develop applications that consume Azure AI services by using a key for authentication. However, this means that the application code must be able to obtain the key. One option is to store the key in an environment variable or a configuration file where the application is deployed, but this approach leaves the key vulnerable to unauthorized access. A better approach when developing applications on Azure is to store the key securely in Azure Key Vault, and provide access to the key through a <em>managed identity</em> (in other words, a user account used by the application itself).</p>
+
+<h3 id="create-a-key-vault-and-add-a-secret">Create a key vault and add a secret</h3>
+
+<p>First, you need to create a key vault and add a <em>secret</em> for the Azure AI services key.</p>
+
+<ol>
+  <li>Make a note of the <strong>key1</strong> value for your Azure AI services resource (or copy it to the clipboard).</li>
+  <li>
+    <p>In the Azure portal, on the <strong>Home</strong> page, select the <strong>＋Create a resource</strong> button, search for <em>Key Vault</em>, and create a <strong>Key Vault</strong> resource with the following settings:</p>
+
+    <ul>
+      <li><strong>Basics</strong> tab
+        <ul>
+          <li><strong>Subscription</strong>: <em>Your Azure subscription</em></li>
+          <li><strong>Resource group</strong>: <em>The same resource group as your Azure AI service resource</em></li>
+          <li><strong>Key vault name</strong>: <em>Enter a unique name</em></li>
+          <li><strong>Region</strong>: <em>The same region as your Azure AI service resource</em></li>
+          <li><strong>Pricing tier</strong>: Standard</li>
+        </ul>
+      </li>
+      <li><strong>Access configuration</strong> tab
+        <ul>
+          <li><strong>Permission model</strong>: Vault access policy</li>
+          <li>Scroll down to the <strong>Access policies</strong> section and select your user using the checkbox on the left. Then select <strong>Review + create</strong>, and select <strong>Create</strong> to create your resource.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Wait for deployment to complete and then go to your key vault resource.</li>
+  <li>In the left navigation pane, select <strong>Secrets</strong> (in the Objects section).</li>
+  <li>Select <strong>+ Generate/Import</strong> and add a new secret with the following settings :
+    <ul>
+      <li><strong>Upload options</strong>: Manual</li>
+      <li><strong>Name</strong>: AI-Services-Key <em>(it’s important to match this exactly, because later you’ll run code that retrieves the secret based on this name)</em></li>
+      <li><strong>Value</strong>: <em>Your <strong>key1</strong> Azure AI services key</em></li>
+    </ul>
+  </li>
+  <li>Select <strong>Create</strong>.</li>
+</ol>
+
+<h3 id="create-a-service-principal">Create a service principal</h3>
+
+<p>To access the secret in the key vault, your application must use a service principal that has access to the secret. You’ll use the Azure command line interface (CLI) to create the service principal, find its object ID, and grant access to the secret in Azure Vault.</p>
+
+<ol>
+  <li>
+    <p>Run the following Azure CLI command, replacing <em>&lt;spName&gt;</em> with a unique suitable name for an application identity (for example, <em>ai-app</em> with your initials appended on the end; the name must be unique within your tenant). Also replace <em>&lt;subscriptionId&gt;</em> and <em>&lt;resourceGroup&gt;</em> with the correct values for your subscription ID and the resource group containing your Azure AI services and key vault resources:</p>
+
+    <blockquote>
+      <p><strong>Tip</strong>: If you are unsure of your subscription ID, use the <strong>az account show</strong> command to retrieve your subscription information - the subscription ID is the <strong>id</strong> attribute in the output. If you see an error about the object already existing, please choose a different unique name.</p>
+    </blockquote>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock4" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock4" class="mt-0"><code class="hljs sql"> az ad sp <span class="hljs-keyword"><span class="hljs-keyword">create</span></span>-<span class="hljs-keyword"><span class="hljs-keyword">for</span></span>-rbac -n <span class="hljs-string"><span class="hljs-string">"api://&lt;spName&gt;"</span></span> <span class="hljs-comment"><span class="hljs-comment">--role owner --scopes subscriptions/&lt;subscriptionId&gt;/resourceGroups/&lt;resourceGroup&gt;</span></span>
+</code></pre>
+  </li>
+</ol>
+
+<p>The output of this command includes information about your new service principal. It should look similar to this:</p>
+
+<div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock5" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock5" class="mt-0"><code class="hljs coffeescript">```<span class="javascript"><span class="javascript">
+{
+    </span><span class="hljs-string"><span class="javascript"><span class="hljs-string">"appId"</span></span></span><span class="javascript">: </span><span class="hljs-string"><span class="javascript"><span class="hljs-string">"abcd12345efghi67890jklmn"</span></span></span><span class="javascript">,
+    </span><span class="hljs-string"><span class="javascript"><span class="hljs-string">"displayName"</span></span></span><span class="javascript">: </span><span class="hljs-string"><span class="javascript"><span class="hljs-string">"api://ai-app-"</span></span></span><span class="javascript">,
+    </span><span class="hljs-string"><span class="javascript"><span class="hljs-string">"password"</span></span></span><span class="javascript">: </span><span class="hljs-string"><span class="javascript"><span class="hljs-string">"1a2b3c4d5e6f7g8h9i0j"</span></span></span><span class="javascript">,
+    </span><span class="hljs-string"><span class="javascript"><span class="hljs-string">"tenant"</span></span></span><span class="javascript">: </span><span class="hljs-string"><span class="javascript"><span class="hljs-string">"1234abcd5678fghi90jklm"</span></span></span><span class="javascript">
+}
+</span></span>```
+</code></pre>
+
+<p>Make a note of the <strong>appId</strong>, <strong>password</strong>, and <strong>tenant</strong> values - you will need them later (if you close this terminal, you won’t be able to retrieve the password; so it’s important to note the values now - you can paste the output into a new text file on your local machine to ensure you can find the values you need later!)</p>
+
+<ol>
+  <li>
+    <p>To get the <strong>object ID</strong> of your service principal, run the following Azure CLI command, replacing <em>&lt;appId&gt;</em> with the value of your service principal’s app ID.</p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock6" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock6" class="mt-0"><code class="hljs sql"> az ad sp <span class="hljs-keyword"><span class="hljs-keyword">show</span></span> <span class="hljs-comment"><span class="hljs-comment">--id &lt;appId&gt;</span></span>
+</code></pre>
+  </li>
+  <li>Copy the <code>id</code> value in the json returned in response.</li>
+  <li>
+    <p>To assign permission for your new service principal to access secrets in your Key Vault, run the following Azure CLI command, replacing <em>&lt;keyVaultName&gt;</em> with the name of your Azure Key Vault resource and <em>&lt;objectId&gt;</em> with the value of your service principal’s ID value you’ve just copied.</p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock7" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock7" class="mt-0"><code class="hljs cs"> az keyvault <span class="hljs-keyword"><span class="hljs-keyword">set</span></span>-policy -n &lt;keyVaultName&gt; --<span class="hljs-keyword"><span class="hljs-keyword">object</span></span>-id &lt;objectId&gt; --secret-permissions <span class="hljs-keyword"><span class="hljs-keyword">get</span></span> list
+</code></pre>
+  </li>
+</ol>
+
+<h3 id="use-the-service-principal-in-an-application">Use the service principal in an application</h3>
+
+<p>Now you’re ready to use the service principal identity in an application, so it can access the secret Azure AI services key in your key vault and use it to connect to your Azure AI services resource.</p>
+
+<blockquote>
+  <p><strong>Note</strong>: In this exercise, we’ll store the service principal credentials in the application configuration and use them to authenticate a <strong>ClientSecretCredential</strong> identity in your application code. This is fine for development and testing, but in a real production application, an administrator would assign a <em>managed identity</em> to the application so that it uses the service principal identity to access resources, without caching or storing the password.</p>
+</blockquote>
+
+<ol>
+  <li>In your terminal, switch to the <strong>C-Sharp</strong> or <strong>Python</strong> folder depending on your language preference by running <code>cd C-Sharp</code> or <code>cd Python</code>. Then run <code>cd keyvault_client</code> to navigate to the app folder.</li>
+  <li>
+    <p>Install the packages you will need to use for Azure Key Vault and the Text Analytics API in your Azure AI services resource by running the appropriate command for your language preference:</p>
+
+    <p><strong>C#</strong></p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock8" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock8" class="mt-0"><code class="hljs css"> <span class="hljs-selector-tag"><span class="hljs-selector-tag">dotnet</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">add</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">package</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">Azure</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.AI</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.TextAnalytics</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">--version</span></span> 5<span class="hljs-selector-class"><span class="hljs-selector-class">.3</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.0</span></span>
+ <span class="hljs-selector-tag"><span class="hljs-selector-tag">dotnet</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">add</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">package</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">Azure</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.Identity</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">--version</span></span> 1<span class="hljs-selector-class"><span class="hljs-selector-class">.5</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.0</span></span>
+ <span class="hljs-selector-tag"><span class="hljs-selector-tag">dotnet</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">add</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">package</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">Azure</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.Security</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.KeyVault</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.Secrets</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">--version</span></span> 4<span class="hljs-selector-class"><span class="hljs-selector-class">.2</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.0-beta</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.3</span></span>
+</code></pre>
+
+    <p><strong>Python</strong></p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock9" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock9" class="mt-0"><code class="hljs sql"> pip <span class="hljs-keyword"><span class="hljs-keyword">install</span></span> azure-ai-textanalytics==<span class="hljs-number"><span class="hljs-number">5.3</span></span><span class="hljs-number"><span class="hljs-number">.0</span></span>
+ pip <span class="hljs-keyword"><span class="hljs-keyword">install</span></span> azure-<span class="hljs-keyword"><span class="hljs-keyword">identity</span></span>==<span class="hljs-number"><span class="hljs-number">1.5</span></span><span class="hljs-number"><span class="hljs-number">.0</span></span>
+ pip <span class="hljs-keyword"><span class="hljs-keyword">install</span></span> azure-keyvault-secrets==<span class="hljs-number"><span class="hljs-number">4.2</span></span><span class="hljs-number"><span class="hljs-number">.0</span></span>
+</code></pre>
+  </li>
+  <li>View the contents of the <strong>keyvault-client</strong> folder, and note that it contains a file for configuration settings:
+    <ul>
+      <li><strong>C#</strong>: appsettings.json</li>
+      <li><strong>Python</strong>: .env</li>
+    </ul>
+
+    <p>Open the configuration file and update the configuration values it contains to reflect the following settings:</p>
+
+    <ul>
+      <li>The <strong>endpoint</strong> for your Azure AI Services resource</li>
+      <li>The name of your <strong>Azure Key Vault</strong> resource</li>
+      <li>The <strong>tenant</strong> for your service principal</li>
+      <li>The <strong>appId</strong> for your service principal</li>
+      <li>The <strong>password</strong> for your service principal</li>
+    </ul>
+
+    <p>Save your changes by pressing <strong>CTRL+S</strong>.</p>
+  </li>
+  <li>
+    <p>Note that the <strong>keyvault-client</strong> folder contains a code file for the client application:</p>
+
+    <ul>
+      <li><strong>C#</strong>: Program.cs</li>
+      <li><strong>Python</strong>: keyvault-client.py</li>
+    </ul>
+
+    <p>Open the code file and review the code it contains, noting the following details:</p>
+    <ul>
+      <li>The namespace for the SDK you installed is imported</li>
+      <li>Code in the <strong>Main</strong> function retrieves the application configuration settings, and then it uses the service principal credentials to get the Azure AI services key from the key vault.</li>
+      <li>The <strong>GetLanguage</strong> function uses the SDK to create a client for the service, and then uses the client to detect the language of the text that was entered.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Enter the following command to run the program:</p>
+
+    <p><strong>C#</strong></p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock10" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock10" class="mt-0"><code class="hljs nginx"> <span class="hljs-attribute"><span class="hljs-attribute">dotnet</span></span> run
+</code></pre>
+
+    <p><strong>Python</strong></p>
+
+    <div class="code-header mt-3 mb-0 bg-light d-flex justify-content-between border"><span class="mx-2 text-muted text-capitalize font-weight-light">code</span><button class="m-0 btn btn-code btn-sm btn-light codeBtn rounded-0 border-left text-muted font-weight-light" data-clipboard-target="#codeBlock11" type="button"><i class="fa fa-files-o mr-2" aria-hidden="true"></i>Copy</button></div><pre id="codeBlock11" class="mt-0"><code class="hljs css"> <span class="hljs-selector-tag"><span class="hljs-selector-tag">python</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">keyvault-client</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.py</span></span>
+</code></pre>
+  </li>
+  <li>When prompted, enter some text and review the language that is detected by the service. For example, try entering “Hello”, “Bonjour”, and “Gracias”.</li>
+  <li>When you have finished testing the application, enter “quit” to stop the program.</li>
+</ol>
+
+<h2 id="clean-up-resources">Clean up resources</h2>
+
+<p>If you’re not using the Azure resources created in this lab for other training modules, you can delete them to avoid incurring further charges.</p>
+
+<ol>
+  <li>
+    <p>Open the Azure portal at <code>https://portal.azure.com</code>, and in the top search bar, search for the resources you created in this lab.</p>
+  </li>
+  <li>
+    <p>On the resource page, select <strong>Delete</strong> and follow the instructions to delete the resource. Alternatively, you can delete the entire resource group to clean up all resources at the same time.</p>
+  </li>
+</ol>
+
+<h2 id="more-information">More information</h2>
+
+<p>For more information about securing Azure AI services, see the <a href="https://docs.microsoft.com/azure/ai-services/security-features">Azure AI Services security documentation</a>.</p>
+
+            </article>
+        </main>
+    </div>
+    <footer class="fixed-bottom d-print-none">
+        <nav class="navbar navbar-light bg-light d-flex justify-content-around">
+            <span class="navbar-text">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <a href="https://github.com/MicrosoftLearning/mslearn-ai-services" target="_blank" class="ml-2">
+                    MicrosoftLearning/mslearn-ai-services
+                </a>
+            </span>
+        </nav>
+    </footer>
+    <script src="./lab02_files/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="./lab02_files/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="./lab02_files/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="./lab02_files/clipboard.min.js"></script>
+    <script src="./lab02_files/highlight.min.js"></script>
+    <script src="./lab02_files/script.js"></script>
+
+
+
+<iframe id="luCsImbt" src="./lab02_files/translateSandbox.html" frameborder="0" style="width: 0px; height: 0px;"></iframe></body></html>

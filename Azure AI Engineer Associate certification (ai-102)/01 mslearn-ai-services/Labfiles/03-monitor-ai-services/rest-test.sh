@@ -1,0 +1,1 @@
+curl -X POST "https://ai-102-lab03.openai.azure.com/text/analytics/v3.1/languages?" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: e640529ac2a64b53b036d29c40ee1e7b" --data-ascii "{'documents':[{'id':1,'text':'hello'}]}"
