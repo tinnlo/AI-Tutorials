@@ -3,7 +3,7 @@
 # Set values for your storage account
 subscription_id=""
 azure_storage_account="aisearchstorage0629"
-azure_storage_key="OsqNrYGsjqI9fX/cn919OZdr+6h81Tt02CiU8phgOTS39AEydH/2GU/aY22Yxr5Qum8YEAhpeBZe+AStLXKcfQ=="
+azure_storage_key=""
 
 echo "Creating container..."
 az storage container create --account-name $azure_storage_account --subscription $subscription_id --name margies --public-access blob --auth-mode key --account-key $azure_storage_key --output none
